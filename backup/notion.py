@@ -3,11 +3,12 @@ import json
 import os
 import shutil
 import requests
+from dotenv import load_dotenv
 from tqdm import tqdm
-
 
 class Notion:
     def __init__(self):
+        load_dotenv()
         secret_token = os.getenv("INTERNAL_INTEGRATION_SECRET")
         if not secret_token:
             raise ValueError("INTERNAL_INTEGRATION_SECRET is not set.")

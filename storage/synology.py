@@ -1,9 +1,12 @@
 import os
+
+from dotenv import load_dotenv
 from synology_api import filestation
 
 class Synology:
 
     def __init__(self):
+        load_dotenv()
         ip_address = os.getenv("SERVER_IP_ADDRESS")
         if not ip_address:
             raise ValueError("SERVER_IP_ADDRESS is not set.")
@@ -29,4 +32,4 @@ class Synology:
         fl = filestation.FileStation(self.ip_address, self.port, self.username, self.password,
                                      secure=False, cert_verify=False, dsm_version=6, debug=True, otp_code=None)
 
-        fl.upload_file(self.dest_path, upload_file)
+        print(fl.upload_file(self.dest_path, upload_file))
