@@ -17,7 +17,7 @@ The initial code for scraping from Notion was adapted from [here.](https://notio
 
 ## Notion setup
 1. Go to https://www.notion.so/profile/integrations/
-2. Create a new internal integration associated to the TRAQ, Inc. workspace
+2. Create a new internal integration associated to your workspace
 3. Get the internal integration secret, save it somewhere secure
 4. Go to Notion, to the top-most page. In page options, go to Connections and select your new integration.
 5. This is needed to give the right permissions to the integration.
