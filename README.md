@@ -25,19 +25,19 @@ The initial code for scraping from Notion was adapted from [here.](https://notio
 ## Installation
 Run the docker build command:
 ```bash
-docker build -t backup-backup .
+docker build -t notion-backup .
 ```
 
 Then, to run you'll need access to the integration's secret key. Run with:
 ```bash
-docker run -d -e \
- INTERNAL_INTEGRATION_SECRET='your integration secret' \
- SERVER_IP_ADDRESS='your server ip' \
- SERVER_PORT='your server port' \
- SERVER_USERNAME='your server username' \
- SERVER_PASSWORD='your server password' \
- DEST_PATH='your destination path' \
- backup-backup
+docker run \
+-e INTERNAL_INTEGRATION_SECRET="your_internal_secret" \
+-e SERVER_IP_ADDRESS="your_server_ip" \
+-e SERVER_PORT="your_server_port" \
+-e SERVER_USERNAME="your_username" \
+-e SERVER_PASSWORD="your_pw" \
+-e DEST_PATH="backup_destination_path" \
+-d notion-backup
 ```
 
 # Caveat
