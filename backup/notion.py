@@ -13,7 +13,6 @@ class Notion:
             raise ValueError("INTERNAL_INTEGRATION_SECRET is not set.")
         self.secret_token = secret_token
 
-
     def backup(self):
         timestamp = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         folder = 'notion-backup-' + timestamp

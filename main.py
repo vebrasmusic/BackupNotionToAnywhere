@@ -2,7 +2,6 @@ import os
 import datetime
 import time
 import shutil
-from synology_api import filestation
 from dotenv import load_dotenv
 
 from backup.notion import Notion
@@ -16,7 +15,7 @@ while True:
     print(f'Starting backup for {datetime.date.today().isoformat()}.')
     notion = Notion()
     synology = Synology()
-    [folder_name, upload_file] = Notion.backup()
+    [folder_name, upload_file] = notion.backup()
     synology.save_to_server(upload_file)
     # Optionally, remove the original folder after zipping
     shutil.rmtree(folder_name)
