@@ -1,12 +1,16 @@
+import logging
 import os
 
 from dotenv import load_dotenv
 from synology_api import filestation
+from storage.storage import StorageInterface
 
-class Synology:
+
+class Synology(StorageInterface):
 
     def __init__(self):
         load_dotenv()
+        self.logger = logging.getLogger("app_logger")
         ip_address = os.getenv("SERVER_IP_ADDRESS")
         if not ip_address:
             raise ValueError("SERVER_IP_ADDRESS is not set.")
@@ -28,8 +32,8 @@ class Synology:
             raise ValueError("DEST_PATH is not set.")
         self.dest_path = dest_path
 
-    def save_to_server(self, upload_file):
+    def upload_backup(self, upload_file):
         fl = filestation.FileStation(self.ip_address, self.port, self.username, self.password,
                                      secure=False, cert_verify=False, dsm_version=6, debug=True, otp_code=None)
-
-        print(fl.upload_file(self.dest_path, upload_file))
+        self.logger.info("Beginning Synology upload process.")
+        fl.upload_file(self.dest_path, upload_file)

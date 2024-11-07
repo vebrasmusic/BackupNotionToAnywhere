@@ -4,7 +4,7 @@ import os
 import shutil
 import requests
 from dotenv import load_dotenv
-from tqdm import tqdm
+from tqdm_loggable.auto import tqdm
 
 class Notion:
     def __init__(self):

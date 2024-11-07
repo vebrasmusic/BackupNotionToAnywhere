@@ -2,21 +2,37 @@ import os
 import datetime
 import time
 import shutil
+from unittest import case
+
 from dotenv import load_dotenv
-
 from backup.notion import Notion
+from storage.s3 import S3
 from storage.synology import Synology
+import logging
+import argparse
 
+logger = logging.getLogger("app_logger")
+logging.basicConfig(filename='log.log', encoding='utf-8', level=logging.DEBUG)
 load_dotenv()
-# for local dev, then we can pass a .env file
-# into the root without building in docker
+
+# Set up the argument parser
+parser = argparse.ArgumentParser(description="BackupNotionToAnywhere")
+# parser.add_argument("--arg1", help="First argument", required=True)
+parser.add_argument("--storage", help="Which storage repository to upload your backups to", default="s3")
+
+# Parse the arguments
+args = parser.parse_args()
 
 while True:
     print(f'Starting backup for {datetime.date.today().isoformat()}.')
     notion = Notion()
-    synology = Synology()
     [folder_name, upload_file] = notion.backup()
-    synology.save_to_server(upload_file)
+
+    if args.storage == "synology":
+        storage = Synology()
+    elif args.storage == "s3":
+        storage = S3()
+    storage.upload_backup(upload_file)
     # Optionally, remove the original folder after zipping
     shutil.rmtree(folder_name)
     os.remove(upload_file)
