@@ -18,7 +18,7 @@ load_dotenv()
 # Set up the argument parser
 parser = argparse.ArgumentParser(description="BackupNotionToAnywhere")
 # parser.add_argument("--arg1", help="First argument", required=True)
-parser.add_argument("--storage", help="Which storage repository to upload your backups to", default="s3")
+parser.add_argument("--storage", help="Which storage repository to upload your backups to", default="synology")
 
 # Parse the arguments
 args = parser.parse_args()
